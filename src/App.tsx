@@ -29,7 +29,7 @@ export const goodsFromServer: Goods = [
 ];
 
 enum SortType {
-  Defalut = '',
+  Default = '',
   ByLength = 'length',
   ByAlphabet = 'alphabet',
 }
@@ -44,7 +44,7 @@ const getPrepearedGoods: GetPrepearedGoods = (
     prepearedGoods.sort((good1, good2) => {
       switch (localSortType) {
         case SortType.ByLength:
-          return good1[SortType.ByLength] - good2[SortType.ByLength];
+          return good1.length - good2.length;
 
         case SortType.ByAlphabet:
           return good1.localeCompare(good2);
@@ -69,7 +69,7 @@ const getPrepearedGoods: GetPrepearedGoods = (
 };
 
 export const App = () => {
-  const [sortType, setSortType] = useState(SortType.Defalut);
+  const [sortType, setSortType] = useState(SortType.Default);
   const [reverse, setReverse] = useState(false);
 
   const visibleGoods = getPrepearedGoods(goodsFromServer, {
@@ -90,7 +90,7 @@ export const App = () => {
   }
 
   function resetList() {
-    setSortType(SortType.Defalut);
+    setSortType(SortType.Default);
     setReverse(false);
   }
 
@@ -127,7 +127,7 @@ export const App = () => {
           Reverse
         </button>
 
-        {(reverse === false && sortType === '') === false && (
+        {(!reverse && sortType === SortType.Default) === false && (
           <button
             type="button"
             className="button is-danger is-light"
